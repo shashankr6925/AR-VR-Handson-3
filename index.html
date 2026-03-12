@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Three.js WebXR Scene</title>
+    <style>
+        body { margin: 0; overflow: hidden; }
+    </style>
+</head>
+<body>
+    <script type="importmap">
+        {
+            "imports": {
+                "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+                "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+            }
+        }
+    </script>
+
+    <script type="module">
+        import * as THREE from 'three';
+        import { VRButton } from 'three/addons/webxr/VRButton.js';
+
+        // 1. Setup Scene, Camera, and Renderer
+        const scene = new THREE.Scene();
+        scene.background = new THREE.Color(0x202020);
+
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        
+        const renderer = new THREE.WebGLRenderer({ antialias: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        
+        // CRITICAL for XR
+        renderer.xr.enabled = true; 
+        document.body.appendChild(renderer.domElement);
+
+        // 2. Add the "Enter VR" Button
+        document.body.appendChild(VRButton.createButton(renderer));
+
+        // 3. Add Objects
+        const geometry = new THREE.BoxGeometry(0.5, 0.5, 0.5);
+        const material = new THREE.MeshStandardMaterial({ color: 0x00ff00 });
+        const cube = new THREE.Mesh(geometry, material);
+        cube.position.set(0, 1.5, -2); // Positioned in front of the user
+        scene.add(cube);
+
+        const light = new THREE.HemisphereLight(0xffffff, 0x444444, 3);
+        scene.add(light);
+
+        // 4. Animation Loop (Use setAnimationLoop, not requestAnimationFrame)
+        renderer.setAnimationLoop(() => {
+            cube.rotation.y += 0.01;
+            renderer.render(scene, camera);
+        });
+
+        // Handle Resize
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+    </script>
+</body>
+</html>
