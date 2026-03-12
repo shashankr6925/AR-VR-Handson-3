@@ -1,2 +1,18 @@
-# AR-VR-Handson-3
-Hands-on 3: Interactive 3D Scene with WebXR 🥽🧊  Creates a 3D scene using Three.js with WebXR support for VR interaction. A rotating cube is rendered and can be viewed in VR on supported devices.  Tech: HTML5 🧾 | JavaScript ⚡ | Three.js 🌐 | WebXR 🥽
+Hands-on 3: Interactive 3D Scene with WebXR 🥽🧊
+Description
+
+This project creates an interactive 3D scene using Three.js with WebXR support. A rotating cube is rendered and can be viewed in VR mode on supported devices.
+
+Technologies
+
+HTML5 🧾
+
+JavaScript ⚡
+
+Three.js 🌐
+
+WebXR 🥽
+
+Outcome
+
+Understand VR scene creation and WebXR integration.
